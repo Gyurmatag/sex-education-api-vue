@@ -1,0 +1,19 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  "plugins": [
+    "vue"
+  ],
+  "extends": [
+    "standard",
+    "plugin:vue/recommended"
+  ],
+  "rules": {
+    "no-console": ["error"],
+    "object-curly-spacing": ["error", "always"],
+    "vue/no-multiple-template-root": "off"
+  }
+}

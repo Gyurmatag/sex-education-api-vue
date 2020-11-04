@@ -1,18 +1,34 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <hero />
+  </div>
+  <div class="home-characters">
+    <character-card
+      v-for="character in characters"
+      :key="character.id"
+      :character="character"
+    />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import { useQuery, useResult } from '@vue/apollo-composable'
+
+import Hero from '@/components/Hero'
+import CharacterCard from '@/components/characters/CharacterCard'
+import charactersQuery from '@/graphql/characters.query.gql'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
+    Hero,
+    CharacterCard
   },
-};
+  setup () {
+    const { result } = useQuery(charactersQuery, { skip: 0, limit: 6 })
+    const characters = useResult(result, null, data => data.characters)
+
+    return { characters }
+  }
+}
 </script>

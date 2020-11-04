@@ -1,7 +1,32 @@
-import { createApp } from 'vue';
-import App from './App.vue';
-import './registerServiceWorker';
-import router from './router';
-import store from './store';
+import { createApp, provide, h } from 'vue'
 
-createApp(App).use(store).use(router).mount('#app');
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
+import { DefaultApolloClient } from '@vue/apollo-composable'
+
+import App from '@/App.vue'
+import router from '@/router'
+import '@/registerServiceWorker'
+
+const httpLink = createHttpLink({
+  uri: process.env.VUE_APP_BACKEND_BASE_URI
+})
+
+const cache = new InMemoryCache()
+
+const apolloClient = new ApolloClient({
+  link: httpLink,
+  cache
+})
+
+createApp(
+  {
+    setup () {
+      provide(DefaultApolloClient, apolloClient)
+    },
+    render () {
+      return h(App)
+    }
+  }
+)
+  .use(router)
+  .mount('#app')

@@ -1,0 +1,62 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type AuthData {
+    token: String!
+    tokenExpiration: String!
+    user: User
+}
+
+type Character {
+    gender: String!
+    id: ID!
+    name: String!
+    seasons: [Season]!
+}
+
+type Episode {
+    director: String!
+    id: ID!
+    season: Season!
+    title: String!
+    writer: String!
+}
+
+type Mutation {
+    createCharacter(gender: String!, name: String!, seasons: [ID]!): Character
+    createEpisode(director: String!, season: ID!, title: String!, writer: String!): Episode
+    createSeason(number: Int!, releaseDate: DateTime!): Season
+    login(email: String!, password: String!): AuthData
+    signup(email: String!, password: String!, username: String!): User
+}
+
+type Query {
+    character(id: ID!): Character
+    characters(limit: Int, skip: Int): [Character]
+    episode(id: ID!): Episode
+    episodes(limit: Int, skip: Int): [Episode]
+    me: User
+    season(id: ID!): Season
+    seasons: [Season]
+}
+
+type Season {
+    id: ID!
+    number: Int!
+    releaseDate: DateTime!
+}
+
+type User {
+    email: String!
+    id: ID!
+    password: String!
+    username: String!
+}
+
+
+"A DateTime representation in ISO format"
+scalar DateTime
