@@ -40,7 +40,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .navbar > .container {
   @include until($desktop) {
     padding: 0 1rem
