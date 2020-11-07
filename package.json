@@ -21,11 +21,11 @@
   "dependencies": {
     "@apollo/client": "^3.2.5",
     "@vue/apollo-composable": "^4.0.0-alpha.12",
-    "bulma": "^0.9.1",
     "core-js": "^3.6.5",
     "graphql": "^15.4.0",
     "graphql-tag": "^2.11.0",
     "register-service-worker": "^1.7.1",
+    "tailwindcss": "^1.9.6",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
   },
@@ -45,9 +45,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.2",
     "eslint-plugin-vue": "^7.1.0",
-    "lint-staged": "^9.5.0",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^10.0.4"
+    "lint-staged": "^9.5.0"
   },
   "browserslist": [
     "> 1%",

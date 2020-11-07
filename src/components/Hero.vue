@@ -1,11 +1,11 @@
 <template>
-  <section class="hero is-primary is-medium">
-    <div class="hero-head">
+  <section>
+    <div>
       <navbar />
     </div>
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <h1 class="title">
+    <div>
+      <div>
+        <h1>
           Sex Education API
         </h1>
       </div>
