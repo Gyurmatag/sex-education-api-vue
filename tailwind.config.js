@@ -1,11 +1,17 @@
 module.exports = {
-  future: {
-    // removeDeprecatedGapUtilities: true,
-    // purgeLayersByDefault: true,
-  },
+  future: {},
   purge: [],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)'
+      }
+    },
+    fontFamily: {
+      display: ['Montserrat'],
+      body: ['Montserrat']
+    }
   },
   variants: {},
   plugins: []

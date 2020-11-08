@@ -1,25 +1,16 @@
 <template>
   <section>
-    <div>
-      <navbar />
-    </div>
-    <div>
-      <div>
-        <h1>
-          Sex Education API
-        </h1>
-      </div>
+    <div class="flex justify-center h-48 bg-primary text-4xl md:text-5xl lg:text-6xl text-white p-6">
+      <h1>
+        Sex Education API
+      </h1>
     </div>
   </section>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
 
 export default {
-  name: 'Hero',
-  components: {
-    Navbar
-  }
+  name: 'Hero'
 }
 </script>

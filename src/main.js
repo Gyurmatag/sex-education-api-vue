@@ -6,7 +6,7 @@ import { DefaultApolloClient } from '@vue/apollo-composable'
 import App from '@/App.vue'
 import router from '@/router'
 import '@/registerServiceWorker'
-import '@/assets/styles/tailwind.css'
+import '@/assets/styles/main.css'
 
 const httpLink = createHttpLink({
   uri: process.env.VUE_APP_BACKEND_BASE_URI

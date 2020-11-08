@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+:root {
+    --color-primary: #A4042B;
+    --color-secondary: #DA5E31;
+}
+
+@tailwind base;
+
+html {
+    font-family: Montserrat, sans-serif;
+}
+
+@tailwind components;
+@tailwind utilities;
