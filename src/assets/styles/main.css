@@ -3,6 +3,7 @@
 :root {
     --color-primary: #A4042B;
     --color-secondary: #DA5E31;
+    --color-main-background: #222;
 }
 
 @tailwind base;

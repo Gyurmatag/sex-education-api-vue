@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       colors: {
         primary: 'var(--color-primary)',
-        secondary: 'var(--color-secondary)'
+        secondary: 'var(--color-secondary)',
+        mainbackground: 'var(--color-main-background)'
       }
     },
     fontFamily: {
