@@ -14,6 +14,7 @@ type AuthData {
 type Character {
     gender: String!
     id: ID!
+    imageUrl: String!
     name: String!
     seasons: [Season]!
 }
@@ -27,7 +28,7 @@ type Episode {
 }
 
 type Mutation {
-    createCharacter(gender: String!, name: String!, seasons: [ID]!): Character
+    createCharacter(gender: String!, imageUrl: String!, name: String!, seasons: [ID]!): Character
     createEpisode(director: String!, season: ID!, title: String!, writer: String!): Episode
     createSeason(number: Int!, releaseDate: DateTime!): Season
     login(email: String!, password: String!): AuthData

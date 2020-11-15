@@ -2,5 +2,6 @@ query Characters($skip: Int, $limit: Int) {
     characters(skip: $skip, limit: $limit) {
         id
         name
+        imageUrl
     }
 }
