@@ -2,9 +2,7 @@
   <div class="home-hero">
     <hero />
   </div>
-  <div class="sm:flex sm:flex-wrap w-full justify-center">
-    <character-card-list />
-  </div>
+  <character-card-list />
 </template>
 
 <script>

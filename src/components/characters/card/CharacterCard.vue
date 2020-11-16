@@ -5,7 +5,7 @@
       alt="character_image"
       class="mx-auto lg:mx-0 lg:object-left h-48 lg:rounded-l-lg"
     >
-    <div class="text-center p-4 text-white">
+    <div class="text-center m-4 text-white">
       {{ character.name }}
     </div>
   </div>
