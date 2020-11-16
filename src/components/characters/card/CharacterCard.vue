@@ -5,8 +5,23 @@
       alt="character_image"
       class="mx-auto lg:mx-0 lg:object-left h-48 lg:rounded-l-lg"
     >
-    <div class="text-center m-4 text-white">
-      {{ character.name }}
+    <div>
+      <div class="text-center lg:text-left m-4 text-white">
+        {{ character.name }}
+      </div>
+      <div class="flex justify-center lg:justify-start items-center lg:text-left m-4 text-gray-500">
+        <div
+          v-if="character.gender === 'MALE'"
+          class="h-3 w-3 mr-2 rounded-lg bg-blue-600"
+        />
+        <div
+          v-else
+          class="h-3 w-3 mr-2 rounded-lg bg-pink-600"
+        />
+        <div>
+          {{ character.gender }}
+        </div>
+      </div>
     </div>
   </div>
 </template>

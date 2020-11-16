@@ -3,5 +3,6 @@ query Characters($skip: Int, $limit: Int) {
         id
         name
         imageUrl
+        gender
     }
 }
