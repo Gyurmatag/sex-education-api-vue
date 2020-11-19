@@ -1,0 +1,5 @@
+mutation SetAuthDataLocal($token: String!) {
+    setAuthDataLocal(token: $token) @client {
+        token
+    }
+}

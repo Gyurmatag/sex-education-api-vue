@@ -12,7 +12,7 @@ type AuthData {
 }
 
 type Character {
-    gender: String!
+    gender: Gender!
     id: ID!
     imageUrl: String!
     name: String!
@@ -55,7 +55,18 @@ type User {
     email: String!
     id: ID!
     password: String!
+    role: Role!
     username: String!
+}
+
+enum Gender {
+    FEMALE
+    MALE
+}
+
+enum Role {
+    ADMIN
+    USER
 }
 
 
