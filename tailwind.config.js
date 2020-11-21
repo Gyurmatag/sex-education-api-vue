@@ -14,6 +14,10 @@ module.exports = {
       body: ['Montserrat']
     }
   },
-  variants: {},
+  variants: {
+    extend: {
+      fill: ['hover']
+    }
+  },
   plugins: []
 }
