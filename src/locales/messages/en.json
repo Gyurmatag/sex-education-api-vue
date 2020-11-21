@@ -1,0 +1,22 @@
+{
+  "title": {
+    "short": "SEA",
+    "long": "Sex Education API"
+  },
+  "nav": {
+    "docs": "Docs",
+    "about": "About"
+  },
+  "info": {
+    "ownName": "Varga György",
+    "characters": "Characters: {count}",
+    "episodes": "Episodes: {count}",
+    "seasons": "Seasons: {count}"
+  },
+  "character": {
+    "gender": {
+      "MALE": "Male",
+      "FEMALE": "Female"
+    }
+  }
+}

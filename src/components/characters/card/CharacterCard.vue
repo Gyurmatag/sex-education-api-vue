@@ -19,7 +19,7 @@
           class="h-3 w-3 mr-2 rounded-lg bg-pink-600"
         />
         <div>
-          {{ character.gender }}
+          {{ $t(`character.gender.${character.gender}`) }}
         </div>
       </div>
     </div>

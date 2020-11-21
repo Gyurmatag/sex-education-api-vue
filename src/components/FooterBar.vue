@@ -4,7 +4,7 @@
     <built-with />
     <div class="p-2">
       <p class="text-sm text-gray-500">
-        &lt;&gt; by <strong class="text-white hover:text-secondary cursor-pointer">Varga György</strong>
+        &lt;&gt; by <strong class="text-white hover:text-secondary cursor-pointer">{{ $t('info.ownName') }}</strong>
       </p>
     </div>
   </div>

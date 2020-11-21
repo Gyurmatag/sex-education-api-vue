@@ -5,7 +5,7 @@
         class="inline-block mr-4 p-1 border-solid border-4 border-secondary text-white hover:text-secondary cursor-pointer"
         to="/"
       >
-        SEA
+        {{ $t('title.short') }}
       </router-link>
     </div>
     <div>
@@ -14,17 +14,17 @@
           class="inline-block align-bottom mr-4 text-white hover:text-secondary cursor-pointer"
           to="/documentation"
         >
-          Docs
+          {{ $t('nav.docs') }}
         </router-link>
         <router-link
           class="inline-block align-bottom mr-4 text-white hover:text-secondary cursor-pointer"
           to="/about"
         >
-          About
+          {{ $t('nav.about') }}
         </router-link>
         <router-link
           class="inline-block align-bottom mr-4"
-          to="/login"
+          to="/auth/login"
         >
           <svg
             class="w-8 h-8 fill-current text-white hover:text-secondary stroke-current stroke-1"

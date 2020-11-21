@@ -3,6 +3,7 @@ import { createApp, provide, h } from 'vue'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 
 import App from '@/App.vue'
+import i18n from '@/locales/i18n'
 import router from '@/router'
 import apolloClient from '@/graphql/grapql'
 import '@/registerServiceWorker'
@@ -19,4 +20,5 @@ createApp(
   }
 )
   .use(router)
+  .use(i18n)
   .mount('#app')
