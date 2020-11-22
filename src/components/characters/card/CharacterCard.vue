@@ -9,7 +9,7 @@
       <div class="text-center lg:text-left m-4 text-white">
         {{ character.name }}
       </div>
-      <div class="flex justify-center lg:justify-start items-center lg:text-left m-4 text-gray-500">
+      <div class="flex justify-center lg:justify-start items-center lg:text-left lg:px-4 text-gray-500">
         <div
           v-if="character.gender === 'MALE'"
           class="h-3 w-3 mr-2 rounded-lg bg-blue-600"
@@ -21,6 +21,9 @@
         <div>
           {{ $t(`character.gender.${character.gender}`) }}
         </div>
+      </div>
+      <div class="flex justify-center lg:justify-start items-center lg:text-left p-4 text-purple-200">
+        <div>Seasons: {{ seasonNumbers }}</div>
       </div>
     </div>
   </div>
@@ -34,6 +37,12 @@ export default {
       type: Object,
       default: null
     }
+  },
+
+  setup (props) {
+    const seasonNumbers = props.character.seasons.map(s => s.number)
+
+    return { seasonNumbers }
   }
 }
 </script>

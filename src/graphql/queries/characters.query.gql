@@ -4,5 +4,8 @@ query Characters($skip: Int, $limit: Int) {
         name
         imageUrl
         gender
+        seasons {
+           number
+        }
     }
 }
