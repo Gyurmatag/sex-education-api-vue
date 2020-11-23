@@ -2,7 +2,7 @@
   <header>
     <navbar />
   </header>
-  <main class="bg-gray-900">
+  <main class="flex-grow bg-gray-900">
     <router-view />
   </main>
   <footer>
