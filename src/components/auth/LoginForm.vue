@@ -57,6 +57,10 @@
 import { toRef, reactive } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { email, required } from '@vuelidate/validators'
+import { useMutation } from '@vue/apollo-composable'
+
+import loginMutation from '@/graphql/mutations/login.mutation.gql'
+import authDataLocalQuery from '@/graphql/queries/authDataLocal.query.gql'
 
 export default {
   name: 'LoginForm',
@@ -76,8 +80,22 @@ export default {
       password: toRef(loginForm, 'password')
     })
 
+    const { mutate: login } = useMutation(loginMutation, () => ({
+      variables: {
+        email: loginForm.emailAddress,
+        password: loginForm.password
+      },
+      update: (cache, { data: { login } }) => {
+        const data = cache.readQuery({ query: authDataLocalQuery })
+        data.authDataLocal = { __typename: 'AuthDataLocal', token: login.token }
+        cache.writeQuery({ query: authDataLocalQuery, data })
+      }
+    }))
+
     const onSubmit = () => {
       vv.value.$touch()
+      if (vv.value.$invalid) return
+      login()
     }
 
     return { vv, onSubmit }
