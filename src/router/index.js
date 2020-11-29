@@ -1,9 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import apolloClient from '@/graphql/grapql'
+import authDataLocalQuery from '@/graphql/queries/authDataLocal.query.gql'
 import Home from '@/views/Home.vue'
 import About from '@/views/About'
 import Docs from '@/views/Docs'
 import Login from '@/views/auth/Login'
+import DashBoard from '@/views/DashBoard'
 
 const routes = [
   {
@@ -25,12 +28,34 @@ const routes = [
     path: '/auth/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/dashboard',
+    name: 'MainDashBoard',
+    component: DashBoard,
+    meta: { requiresAuth: true }
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const data = apolloClient.cache.readQuery({ query: authDataLocalQuery })
+  const isUserLoggedIn = data?.authDataLocal
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isUserLoggedIn) {
+      next({
+        path: '/auth/login'
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

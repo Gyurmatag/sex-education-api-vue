@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full max-w-sm m-auto bg-gray-800 rounded p-5">
-    <div class="flex text-xl text-white justify-center mb-5">
+  <div class="w-full max-w-sm m-auto p-5 rounded bg-gray-800">
+    <div class="flex text-xl justify-center mb-5 text-white">
       {{ $t('login.title') }}
     </div>
     <form @submit.prevent="onSubmit">
@@ -46,7 +46,7 @@
       </div>
       <div class="flex justify-end">
         <button
-          class="text-white font-bold bg-primary p-2 disabled:opacity-50 rounded-lg"
+          class="p-2 disabled:opacity-50 rounded-lg text-white font-bold bg-primary"
           :disabled="loginLoading"
         >
           {{ $t('common.submit') }}
@@ -54,9 +54,9 @@
       </div>
       <div
         v-if="loginError"
-        class="flex text-md text-white justify-start"
+        class="flex justify-start text-md text-white"
       >
-        {{ $t('login.error.login_request') }}: {{ loginError.message }}
+        {{ $t('login.error.loginRequest') }}: {{ loginError.message }}
       </div>
     </form>
   </div>
@@ -70,6 +70,7 @@ import { useMutation } from '@vue/apollo-composable'
 
 import loginMutation from '@/graphql/mutations/login.mutation.gql'
 import authDataLocalQuery from '@/graphql/queries/authDataLocal.query.gql'
+import router from '@/router'
 
 export default {
   name: 'LoginForm',
@@ -89,7 +90,12 @@ export default {
       password: toRef(loginForm, 'password')
     })
 
-    const { mutate: login, loading: loginLoading, error: loginError } = useMutation(loginMutation, () => ({
+    const {
+      mutate: login,
+      loading: loginLoading,
+      error: loginError,
+      onDone: loginDone
+    } = useMutation(loginMutation, () => ({
       variables: {
         email: loginForm.emailAddress,
         password: loginForm.password
@@ -111,6 +117,10 @@ export default {
       if (vv.value.$invalid) return
       login()
     }
+
+    loginDone(result => {
+      router.push('/dashboard')
+    })
 
     return { vv, onSubmit, loginLoading, loginError }
   }

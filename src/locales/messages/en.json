@@ -25,7 +25,10 @@
   "login": {
     "title": "Login",
     "error": {
-      "login_request": "Bad login data"
+      "loginRequest": "Bad login data"
     }
+  },
+  "dashBoard": {
+    "title": "DashBoard"
   }
 }
