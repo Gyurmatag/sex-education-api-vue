@@ -1,5 +1,11 @@
 query AuthDataLocal {
     authDataLocal @client {
         token
+        tokenExpiration
+        user {
+            id
+            username
+            role
+        }
     }
 }

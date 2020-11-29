@@ -1,7 +1,7 @@
 <template>
   <div class="w-full max-w-sm m-auto bg-gray-800 rounded p-5">
     <div class="flex text-xl text-white justify-center mb-5">
-      Login
+      {{ $t('login.title') }}
     </div>
     <form @submit.prevent="onSubmit">
       <div class="h-28">
@@ -45,9 +45,18 @@
         </div>
       </div>
       <div class="flex justify-end">
-        <button class="text-white font-bold bg-primary p-2 rounded-lg">
-          Submit
+        <button
+          class="text-white font-bold bg-primary p-2 disabled:opacity-50 rounded-lg"
+          :disabled="loginLoading"
+        >
+          {{ $t('common.submit') }}
         </button>
+      </div>
+      <div
+        v-if="loginError"
+        class="flex text-md text-white justify-start"
+      >
+        {{ $t('login.error.login_request') }}: {{ loginError.message }}
       </div>
     </form>
   </div>
@@ -80,14 +89,19 @@ export default {
       password: toRef(loginForm, 'password')
     })
 
-    const { mutate: login } = useMutation(loginMutation, () => ({
+    const { mutate: login, loading: loginLoading, error: loginError } = useMutation(loginMutation, () => ({
       variables: {
         email: loginForm.emailAddress,
         password: loginForm.password
       },
       update: (cache, { data: { login } }) => {
         const data = cache.readQuery({ query: authDataLocalQuery })
-        data.authDataLocal = { __typename: 'AuthDataLocal', token: login.token }
+        data.authDataLocal = {
+          __typename: 'AuthDataLocal',
+          token: login.token,
+          tokenExpiration: login.tokenExpiration,
+          user: login.user
+        }
         cache.writeQuery({ query: authDataLocalQuery, data })
       }
     }))
@@ -98,7 +112,7 @@ export default {
       login()
     }
 
-    return { vv, onSubmit }
+    return { vv, onSubmit, loginLoading, loginError }
   }
 }
 </script>

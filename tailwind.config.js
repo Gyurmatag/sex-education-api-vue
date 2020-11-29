@@ -16,7 +16,8 @@ module.exports = {
   },
   variants: {
     extend: {
-      fill: ['hover']
+      fill: ['hover'],
+      opacity: ['disabled']
     }
   },
   plugins: []

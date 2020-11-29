@@ -1,6 +1,5 @@
-import { ApolloClient, createHttpLink } from '@apollo/client/core'
+import { ApolloClient, ApolloLink, createHttpLink } from '@apollo/client/core'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-
 import authDataLocalQuery from '@/graphql/queries/authDataLocal.query.gql'
 
 const httpLink = createHttpLink({
@@ -10,20 +9,21 @@ const httpLink = createHttpLink({
 const cache = new InMemoryCache()
 cache.writeData({ data: { authDataLocal: null } })
 
-const resolvers = {
-  Mutation: {
-    setAuthDataLocal (_, { token }, { cache }) {
-      const data = cache.readQuery({ query: authDataLocalQuery })
-      data.authDataLocal = { __typename: 'AuthDataLocal', token: token }
-      cache.writeQuery({ query: authDataLocalQuery, data })
+const authMiddleware = new ApolloLink((operation, forward) => {
+  const data = cache.readQuery({ query: authDataLocalQuery })
+  const token = data?.authDataLocal?.token
+  operation.setContext({
+    headers: {
+      'x-token': token || null
     }
-  }
-}
+  })
+
+  return forward(operation)
+})
 
 const apolloClient = new ApolloClient({
-  link: httpLink,
-  cache,
-  resolvers
+  link: authMiddleware.concat(httpLink),
+  cache
 })
 
 export default apolloClient

@@ -1,4 +1,7 @@
 {
+  "common": {
+    "submit": "Submit"
+  },
   "title": {
     "short": "SEA",
     "long": "Sex Education API"
@@ -17,6 +20,12 @@
     "gender": {
       "MALE": "Male",
       "FEMALE": "Female"
+    }
+  },
+  "login": {
+    "title": "Login",
+    "error": {
+      "login_request": "Bad login data"
     }
   }
 }
