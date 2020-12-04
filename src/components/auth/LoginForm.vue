@@ -104,8 +104,8 @@ export default {
         const data = cache.readQuery({ query: authDataLocalQuery })
         data.authDataLocal = {
           __typename: 'AuthDataLocal',
-          token: login.token,
-          tokenExpiration: login.tokenExpiration,
+          accessToken: login.accessToken,
+          accessTokenExpiration: login.accessTokenExpiration,
           user: login.user
         }
         cache.writeQuery({ query: authDataLocalQuery, data })

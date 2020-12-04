@@ -1,5 +1,5 @@
-mutation SetAuthDataLocal($token: String!) {
-    setAuthDataLocal(token: $token) @client {
-        token
+mutation SetAuthDataLocal($accessToken: String!) {
+    setAuthDataLocal(accessToken: $accessToken) @client {
+        accessToken
     }
 }

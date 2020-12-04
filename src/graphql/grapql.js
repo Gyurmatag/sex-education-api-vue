@@ -11,10 +11,10 @@ cache.writeData({ data: { authDataLocal: null } })
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   const data = cache.readQuery({ query: authDataLocalQuery })
-  const token = data?.authDataLocal?.token
+  const accessToken = data?.authDataLocal?.accessToken
   operation.setContext({
     headers: {
-      'x-access-token': token || null
+      'x-access-token': accessToken || null
     }
   })
 
