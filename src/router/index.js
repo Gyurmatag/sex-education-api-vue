@@ -27,7 +27,8 @@ const routes = [
   {
     path: '/auth/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    meta: { needToBeLoggedOut: true }
   },
   {
     path: '/dashboard',
@@ -49,6 +50,14 @@ router.beforeEach((to, from, next) => {
     if (!isUserLoggedIn) {
       next({
         path: '/auth/login'
+      })
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.meta.needToBeLoggedOut)) {
+    if (isUserLoggedIn) {
+      next({
+        path: '/dashboard'
       })
     } else {
       next()

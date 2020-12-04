@@ -14,7 +14,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   const token = data?.authDataLocal?.token
   operation.setContext({
     headers: {
-      'x-token': token || null
+      'x-access-token': token || null
     }
   })
 
