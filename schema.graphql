@@ -8,6 +8,8 @@ schema {
 type AuthData {
     accessToken: String!
     accessTokenExpiration: String!
+    refreshToken: String!
+    refreshTokenExpiration: String!
     user: User
 }
 
@@ -17,6 +19,12 @@ type Character {
     imageUrl: String!
     name: String!
     seasons: [Season]!
+}
+
+type DocumentsCount {
+    charactersCount: Int!
+    episodesCount: Int!
+    seasonsCount: Int!
 }
 
 type Episode {
@@ -32,12 +40,15 @@ type Mutation {
     createEpisode(director: String!, season: ID!, title: String!, writer: String!): Episode
     createSeason(number: Int!, releaseDate: DateTime!): Season
     login(email: String!, password: String!): AuthData
+    logout(refreshToken: String!): User
+    refreshAccessToken(refreshToken: String!): AuthData
     signup(email: String!, password: String!, username: String!): User
 }
 
 type Query {
     character(id: ID!): Character
     characters(limit: Int, skip: Int): [Character]
+    countDocuments: DocumentsCount
     episode(id: ID!): Episode
     episodes(limit: Int, skip: Int): [Episode]
     me: User
