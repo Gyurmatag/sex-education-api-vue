@@ -2,6 +2,8 @@ query AuthDataLocal {
     authDataLocal @client {
         accessToken
         accessTokenExpiration
+        refreshToken
+        refreshTokenExpiration
         user {
             id
             username

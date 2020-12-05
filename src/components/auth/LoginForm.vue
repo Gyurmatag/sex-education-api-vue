@@ -106,6 +106,8 @@ export default {
           __typename: 'AuthDataLocal',
           accessToken: login.accessToken,
           accessTokenExpiration: login.accessTokenExpiration,
+          refreshToken: login.refreshToken,
+          refreshTokenExpiration: login.refreshTokenExpiration,
           user: login.user
         }
         cache.writeQuery({ query: authDataLocalQuery, data })

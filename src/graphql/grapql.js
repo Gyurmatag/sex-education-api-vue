@@ -1,4 +1,5 @@
 import { ApolloClient, ApolloLink, createHttpLink } from '@apollo/client/core'
+import { onError } from '@apollo/client/link/error'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import authDataLocalQuery from '@/graphql/queries/authDataLocal.query.gql'
 
@@ -9,7 +10,21 @@ const httpLink = createHttpLink({
 const cache = new InMemoryCache()
 cache.writeData({ data: { authDataLocal: null } })
 
-const authMiddleware = new ApolloLink((operation, forward) => {
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    graphQLErrors.map(({ extensions, message, locations, path }) =>
+      // eslint-disable-next-line no-console
+      console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
+    )
+  }
+
+  if (networkError) {
+    // eslint-disable-next-line no-console
+    console.log(`[Network error]: ${networkError}`)
+  }
+})
+
+const authLink = new ApolloLink((operation, forward) => {
   const data = cache.readQuery({ query: authDataLocalQuery })
   const accessToken = data?.authDataLocal?.accessToken
   operation.setContext({
@@ -22,7 +37,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 })
 
 const apolloClient = new ApolloClient({
-  link: authMiddleware.concat(httpLink),
+  link: ApolloLink.from([errorLink, authLink, httpLink]),
   cache
 })
 
