@@ -41,7 +41,7 @@ type Mutation {
     createSeason(number: Int!, releaseDate: DateTime!): Season
     login(email: String!, password: String!): AuthData
     logout(refreshToken: String!): User
-    refreshAccessToken(refreshToken: String!): AuthData
+    refreshAccessToken(availableRefreshToken: String!): AuthData
     signup(email: String!, password: String!, username: String!): User
 }
 

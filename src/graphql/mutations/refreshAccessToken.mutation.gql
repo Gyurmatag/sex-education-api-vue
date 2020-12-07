@@ -1,0 +1,13 @@
+mutation RefreshAccessToken($availableRefreshToken: String!) {
+    refreshAccessToken(availableRefreshToken: $availableRefreshToken) {
+        accessToken
+        accessTokenExpiration
+        refreshToken
+        refreshTokenExpiration
+        user {
+            id
+            username
+            role
+        }
+    }
+}
