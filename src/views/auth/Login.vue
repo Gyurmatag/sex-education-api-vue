@@ -1,7 +1,5 @@
 <template>
-  <div class="p-4 w-full justify-center">
-    <login-form />
-  </div>
+  <login-form />
 </template>
 
 <script>

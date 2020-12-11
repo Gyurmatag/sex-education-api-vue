@@ -1,64 +1,66 @@
 <template>
-  <div class="w-full max-w-sm m-auto p-5 rounded bg-gray-800">
-    <div class="flex text-xl justify-center mb-5 text-white">
-      {{ $t('login.title') }}
+  <div class="p-4 w-full justify-center">
+    <div class="w-full max-w-sm m-auto p-5 rounded bg-gray-800">
+      <div class="flex text-xl justify-center mb-5 text-white">
+        {{ $t('login.form.title') }}
+      </div>
+      <form @submit.prevent="onSubmit">
+        <div class="h-28">
+          <label
+            class="block mb-2 text-white"
+            for="email"
+          >{{ $t('login.form.email') }}</label>
+          <input
+            id="email"
+            v-model="vv.emailAddress.$model"
+            class="w-full p-2 border-b-2 rounded-lg outline-none"
+            type="email"
+            name="email"
+            :class="{ 'is-invalid': vv.emailAddress.$error }"
+          >
+          <div
+            v-if="vv.emailAddress.$error"
+            class="block text-white"
+          >
+            <span>{{ vv.emailAddress?.$errors[0]?.$message }}</span>
+          </div>
+        </div>
+        <div class="h-28">
+          <label
+            class="block mb-2 text-white"
+            for="password"
+          >{{ $t('login.form.password') }}</label>
+          <input
+            id="password"
+            v-model="vv.password.$model"
+            class="w-full p-2 border-b-2 rounded-lg outline-none"
+            type="password"
+            name="password"
+            :class="{ 'is-invalid': vv.password.$error }"
+          >
+          <div
+            v-if="vv.password.$error"
+            class="block text-white"
+          >
+            <span>{{ vv.password?.$errors[0]?.$message }}</span>
+          </div>
+        </div>
+        <div class="flex justify-end">
+          <button
+            class="p-2 rounded-lg text-white font-bold bg-primary disabled:opacity-50 disabled:cursor-default"
+            :disabled="vv.$invalid || loginLoading"
+          >
+            {{ $t('common.submit') }}
+          </button>
+        </div>
+        <div
+          v-if="loginError"
+          class="flex justify-start text-md text-white"
+        >
+          {{ $t('login.error.loginRequest') }}: {{ loginError.message }}
+        </div>
+      </form>
     </div>
-    <form @submit.prevent="onSubmit">
-      <div class="h-28">
-        <label
-          class="block mb-2 text-white"
-          for="email"
-        >Email</label>
-        <input
-          id="email"
-          v-model="vv.emailAddress.$model"
-          class="w-full p-2 border-b-2 outline-none"
-          type="email"
-          name="email"
-          :class="{ 'is-invalid': vv.emailAddress.$error }"
-        >
-        <div
-          v-if="vv.emailAddress.$error"
-          class="block text-white"
-        >
-          <span>{{ vv?.emailAddress?.$errors[0]?.$message }}</span>
-        </div>
-      </div>
-      <div class="h-28">
-        <label
-          class="block mb-2 text-white"
-          for="password"
-        >Password</label>
-        <input
-          id="password"
-          v-model="vv.password.$model"
-          class="w-full p-2 border-b-2 outline-none"
-          type="password"
-          name="password"
-          :class="{ 'is-invalid': vv.password.$error }"
-        >
-        <div
-          v-if="vv.password.$error"
-          class="block text-white"
-        >
-          <span>{{ vv?.password?.$errors[0]?.$message }}</span>
-        </div>
-      </div>
-      <div class="flex justify-end">
-        <button
-          class="p-2 disabled:opacity-50 rounded-lg text-white font-bold bg-primary"
-          :disabled="loginLoading"
-        >
-          {{ $t('common.submit') }}
-        </button>
-      </div>
-      <div
-        v-if="loginError"
-        class="flex justify-start text-md text-white"
-      >
-        {{ $t('login.error.loginRequest') }}: {{ loginError.message }}
-      </div>
-    </form>
   </div>
 </template>
 

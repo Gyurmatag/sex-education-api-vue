@@ -7,6 +7,7 @@ import About from '@/views/About'
 import Docs from '@/views/Docs'
 import Login from '@/views/auth/Login'
 import DashBoard from '@/views/DashBoard'
+import CreateCharacter from '@/views/character/CreateCharacter'
 
 const routes = [
   {
@@ -34,6 +35,12 @@ const routes = [
     path: '/dashboard',
     name: 'MainDashBoard',
     component: DashBoard,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/character/new',
+    name: 'CreateCharacter',
+    component: CreateCharacter,
     meta: { requiresAuth: true }
   }
 ]

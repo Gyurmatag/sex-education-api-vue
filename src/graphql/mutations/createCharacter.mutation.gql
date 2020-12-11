@@ -1,0 +1,16 @@
+mutation CreateCharacter(
+    $name: String!
+    $gender: String!
+    $imageUrl: String!
+    $seasons: [ID]!
+) {
+    createCharacter(
+        name: $name
+        gender: $gender
+        imageUrl: $imageUrl
+        seasons: $seasons
+    ) {
+        id
+        name
+    }
+}

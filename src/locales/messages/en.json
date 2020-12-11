@@ -17,15 +17,35 @@
     "seasons": "Seasons: {count}"
   },
   "character": {
-    "gender": {
-      "MALE": "Male",
-      "FEMALE": "Female"
+    "common": {
+      "gender": {
+        "MALE": "Male",
+        "FEMALE": "Female"
+      },
+      "season": "Season {seasonNumber}"
+    },
+    "create": {
+      "action": "Add a Character",
+      "title": "New Character",
+      "name": "Name",
+      "image": "Image",
+      "gender": "Gender",
+      "season": "Seasons"
+    }
+  },
+  "episode": {
+    "create": {
+      "action": "Add an Episode"
     }
   },
   "login": {
-    "title": "Login",
-    "error": {
-      "loginRequest": "Bad login data"
+    "form": {
+      "title": "Login",
+      "email": "E-mail",
+      "password": "Password",
+      "error": {
+        "loginRequest": "Bad login data"
+      }
     }
   },
   "dashBoard": {

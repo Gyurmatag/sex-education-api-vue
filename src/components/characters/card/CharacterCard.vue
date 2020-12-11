@@ -19,7 +19,7 @@
           class="h-3 w-3 mr-2 rounded-lg bg-pink-600"
         />
         <div>
-          {{ $t(`character.gender.${character.gender}`) }}
+          {{ $t(`character.common.gender.${character.gender}`) }}
         </div>
       </div>
       <div class="flex justify-center lg:justify-start items-center lg:text-left p-4 text-purple-200">
