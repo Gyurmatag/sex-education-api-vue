@@ -24,7 +24,7 @@
 import { useQuery, useResult } from '@vue/apollo-composable'
 
 import CharacterCard from '@/components/characters/card/CharacterCard'
-import charactersQuery from '@/graphql/queries/characters.query.gql'
+import charactersQuery from '@/graphql/queries/remote/characters.query.gql'
 import CharacterCardSkeleton from '@/components/characters/card/CharacterCardSkeleton'
 
 export default {

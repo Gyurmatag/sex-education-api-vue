@@ -2,14 +2,14 @@
   <div class="p-4 w-full justify-center">
     <div class="w-full max-w-sm m-auto p-5 rounded bg-gray-800">
       <div class="flex text-xl justify-center mb-5 text-white">
-        {{ $t('login.form.title') }}
+        {{ $t('signUp.form.title') }}
       </div>
       <form @submit.prevent="onSubmit">
         <div class="h-28">
           <label
             class="block mb-2 text-white"
             for="email"
-          >{{ $t('login.form.email') }}</label>
+          >{{ $t('signUp.form.email') }}</label>
           <input
             id="email"
             v-model="vv.emailAddress.$model"
@@ -28,8 +28,28 @@
         <div class="h-28">
           <label
             class="block mb-2 text-white"
+            for="email"
+          >{{ $t('signUp.form.username') }}</label>
+          <input
+            id="username"
+            v-model="vv.username.$model"
+            class="w-full p-2 border-b-2 rounded-lg outline-none"
+            type="text"
+            name="username"
+            :class="{ 'ring-4 ring-red-600': vv.username.$error }"
+          >
+          <div
+            v-if="vv.username.$error"
+            class="py-2 block text-red-600"
+          >
+            <span>{{ vv.username?.$errors[0]?.$message }}</span>
+          </div>
+        </div>
+        <div class="h-28">
+          <label
+            class="block mb-2 text-white"
             for="password"
-          >{{ $t('login.form.password') }}</label>
+          >{{ $t('signUp.form.password') }}</label>
           <input
             id="password"
             v-model="vv.password.$model"
@@ -48,23 +68,23 @@
         <div class="flex justify-end">
           <button
             class="p-2 rounded-lg text-white font-bold bg-primary disabled:opacity-50 disabled:cursor-default"
-            :disabled="vv.$invalid || loginLoading"
+            :disabled="vv.$invalid || signUpLoading"
           >
             {{ $t('common.submit') }}
           </button>
         </div>
         <div
-          v-if="loginError"
+          v-if="signUpError"
           class="flex justify-start text-md text-white"
         >
-          {{ $t('login.error.loginRequest') }}: {{ loginError.message }}
+          {{ $t('signUp.error.signUpRequest') }}: {{ signUpError.message }}
         </div>
       </form>
       <div class="text-sm text-white">
-        {{ $t('login.notUser.question') }}
-        <router-link to="/auth/sign-up">
+        {{ $t('signUp.alreadyUser.question') }}
+        <router-link to="/auth/login">
           <span class="font-extrabold hover:text-primary cursor-pointer">
-            {{ $t('login.notUser.action') }}
+            {{ $t('signUp.alreadyUser.action') }}
           </span>
         </router-link>
       </div>
@@ -78,63 +98,54 @@ import { useVuelidate } from '@vuelidate/core'
 import { email, required } from '@vuelidate/validators'
 import { useMutation } from '@vue/apollo-composable'
 
-import loginMutation from '@/graphql/mutations/remote/login.mutation.gql'
-import authDataLocalQuery from '@/graphql/queries/local/authDataLocal.query.gql'
+import signUpMutation from '@/graphql/mutations/remote/signUp.mutation.gql'
 import router from '@/router'
 
 export default {
-  name: 'LoginForm',
+  name: 'SignUpForm',
 
   setup () {
-    const loginForm = reactive({
+    const signUpForm = reactive({
       emailAddress: '',
+      username: '',
       password: ''
     })
     const rules = {
       emailAddress: { required, email },
+      username: { required },
       password: { required }
     }
 
     const vv = useVuelidate(rules, {
-      emailAddress: toRef(loginForm, 'emailAddress'),
-      password: toRef(loginForm, 'password')
+      emailAddress: toRef(signUpForm, 'emailAddress'),
+      username: toRef(signUpForm, 'username'),
+      password: toRef(signUpForm, 'password')
     })
 
     const {
-      mutate: login,
-      loading: loginLoading,
-      error: loginError,
-      onDone: loginDone
-    } = useMutation(loginMutation, () => ({
+      mutate: signUp,
+      loading: signUpLoading,
+      error: signUpError,
+      onDone: signUpDone
+    } = useMutation(signUpMutation, () => ({
       variables: {
-        email: loginForm.emailAddress,
-        password: loginForm.password
-      },
-      update: (cache, { data: { login } }) => {
-        const data = cache.readQuery({ query: authDataLocalQuery })
-        data.authDataLocal = {
-          __typename: 'AuthDataLocal',
-          accessToken: login.accessToken,
-          accessTokenExpiration: login.accessTokenExpiration,
-          refreshToken: login.refreshToken,
-          refreshTokenExpiration: login.refreshTokenExpiration,
-          user: login.user
-        }
-        cache.writeQuery({ query: authDataLocalQuery, data })
+        email: signUpForm.emailAddress,
+        username: signUpForm.username,
+        password: signUpForm.password
       }
     }))
 
     const onSubmit = () => {
       vv.value.$touch()
       if (vv.value.$invalid) return
-      login()
+      signUp()
     }
 
-    loginDone(result => {
-      router.push('/dashboard')
+    signUpDone(result => {
+      router.push('/auth/login')
     })
 
-    return { vv, onSubmit, loginLoading, loginError }
+    return { vv, onSubmit, signUpLoading, signUpError }
   }
 }
 </script>

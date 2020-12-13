@@ -46,7 +46,29 @@
       "error": {
         "loginRequest": "Bad login data"
       }
+    },
+    "notUser": {
+      "question": "Not a User?",
+      "action": "Sign Up"
     }
+  },
+  "signUp": {
+    "form": {
+      "title": "Sign Up",
+      "email": "E-mail",
+      "username": "Username",
+      "password": "Password",
+      "error": {
+        "signUpRequest": "Error with Sign Up"
+      }
+    },
+    "alreadyUser": {
+      "question": "Already a User?",
+      "action": "Log In"
+    }
+  },
+  "logout": {
+    "action": "Logout"
   },
   "dashBoard": {
     "title": "DashBoard"

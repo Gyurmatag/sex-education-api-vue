@@ -28,7 +28,7 @@
         <div class="h-28">
           <label
             class="block mb-2 text-white"
-            for="name"
+            for="image"
           >{{ $t('character.create.image') }}</label>
           <input
             id="image"
@@ -58,7 +58,7 @@
                 class="h-4 w-4 border-b-2 rounded-lg outline-none"
                 type="radio"
                 name="name"
-                :class="{ 'ring-4 ring-red-600': vv.imageUrl.$error }"
+                :class="{ 'ring-4 ring-red-600': vv.gender.$error }"
               >
               <label
                 for="male"
@@ -137,9 +137,9 @@ import { useQuery, useResult, useMutation } from '@vue/apollo-composable'
 import { required } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 
-import createCharacterMutation from '@/graphql/mutations/createCharacter.mutation.gql'
+import createCharacterMutation from '@/graphql/mutations/remote/createCharacter.mutation.gql'
 import router from '@/router'
-import seasonsQuery from '@/graphql/queries/seasons.query.gql'
+import seasonsQuery from '@/graphql/queries/remote/seasons.query.gql'
 
 export default {
   name: 'CreateCharacterForm',

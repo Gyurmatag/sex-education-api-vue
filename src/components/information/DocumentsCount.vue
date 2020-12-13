@@ -11,7 +11,7 @@
 
 <script>
 import { useQuery, useResult } from '@vue/apollo-composable'
-import countDocumentsQuery from '@/graphql/queries/countDocuments.query.gql'
+import countDocumentsQuery from '@/graphql/queries/remote/countDocuments.query.gql'
 
 export default {
   name: 'DocumentsCount',

@@ -1,8 +1,8 @@
 import { ApolloClient, ApolloLink, createHttpLink } from '@apollo/client/core'
 import { onError } from '@apollo/client/link/error'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import authDataLocalQuery from '@/graphql/queries/authDataLocal.query.gql'
-import refreshAccessTokenMutation from '@/graphql/mutations/refreshAccessToken.mutation.gql'
+import authDataLocalQuery from '@/graphql/queries/local/authDataLocal.query.gql'
+import refreshAccessTokenMutation from '@/graphql/mutations/remote/refreshAccessToken.mutation.gql'
 import router from '@/router'
 
 const httpLink = createHttpLink({
