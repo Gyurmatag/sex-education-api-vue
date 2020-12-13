@@ -34,8 +34,17 @@
     }
   },
   "episode": {
+    "common": {
+      "season": "Season {seasonNumber}"
+    },
     "create": {
-      "action": "Add an Episode"
+      "action": "Add an Episode",
+      "title": "New Episode",
+      "number": "Number",
+      "episodeTitle": "Title",
+      "director": "Director",
+      "writer": "Writer",
+      "season": "Season"
     }
   },
   "login": {

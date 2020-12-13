@@ -14,7 +14,7 @@
 
 <script>
 import AdminActions from '@/components/dashboard/admin/AdminActions'
-import UserActions from '@/components/dashboard/admin/UserActions'
+import UserActions from '@/components/dashboard/user/UserActions'
 
 export default {
   name: 'MainDashBoard',

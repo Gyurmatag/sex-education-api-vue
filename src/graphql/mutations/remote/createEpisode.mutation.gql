@@ -1,0 +1,19 @@
+mutation CreateEpisode(
+    $number: Int!
+    $title: String!
+    $director: String!
+    $writer: String!
+    $season: ID!
+) {
+    createEpisode(
+        number: $number
+        title: $title
+        director: $director
+        writer: $writer
+        season: $season
+    ) {
+        id
+        number
+        title
+    }
+}

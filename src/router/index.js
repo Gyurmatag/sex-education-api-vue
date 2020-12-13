@@ -9,6 +9,7 @@ import Login from '@/views/auth/Login'
 import SignUp from '@/views/auth/SignUp'
 import DashBoard from '@/views/DashBoard'
 import CreateCharacter from '@/views/character/CreateCharacter'
+import CreateEpisode from '@/views/episode/CreateEpisode'
 
 const routes = [
   {
@@ -48,6 +49,12 @@ const routes = [
     path: '/character/new',
     name: 'CreateCharacter',
     component: CreateCharacter,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/episode/new',
+    name: 'CreateEpisode',
+    component: CreateEpisode,
     meta: { requiresAuth: true }
   }
 ]

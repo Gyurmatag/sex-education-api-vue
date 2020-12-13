@@ -4,9 +4,11 @@
       {{ $t('character.create.action') }}
     </button>
   </router-link>
-  <button class="w-48 disabled:opacity-50 text-white font-bold bg-purple-800 rounded-md shadow">
-    {{ $t('episode.create.action') }}
-  </button>
+  <router-link to="/episode/new">
+    <button class="w-48 p-6 disabled:opacity-50 text-white font-bold bg-purple-800 rounded-md shadow">
+      {{ $t('episode.create.action') }}
+    </button>
+  </router-link>
 </template>
 
 <script>
