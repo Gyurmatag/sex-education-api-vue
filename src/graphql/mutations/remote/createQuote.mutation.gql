@@ -1,0 +1,6 @@
+mutation CreateQuote($text: String!, $character: ID!) {
+  createQuote(text: $text, character: $character) {
+    id
+    text
+  }
+}

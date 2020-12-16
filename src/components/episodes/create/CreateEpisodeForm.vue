@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col mb-8 space-y-8 rounded">
-    <div class="flex justify-center py-5 bg-gray-800 text-xl text-white">
+  <div class="flex flex-col items-center mb-8 space-y-8 rounded">
+    <div class="flex w-full justify-center py-5 bg-gray-800 text-xl text-white">
       {{ $t('episode.create.title') }}
     </div>
     <div class="w-full max-w-xl m-auto p-5 bg-gray-800">
@@ -197,7 +197,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

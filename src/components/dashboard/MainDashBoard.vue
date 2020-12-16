@@ -9,6 +9,11 @@
     >
       <admin-actions />
     </div>
+    <div
+      class="flex justify-center space-x-6 p-6"
+    >
+      <user-actions />
+    </div>
     <div class="flex justify-center space-x-6 p-6">
       <logout-action />
     </div>
@@ -20,13 +25,15 @@ import AdminActions from '@/components/dashboard/admin/AdminActions'
 import LogoutAction from '@/components/dashboard/shared/LogoutAction'
 import apolloClient from '@/graphql/grapql'
 import authDataLocalQuery from '@/graphql/queries/local/authDataLocal.query.gql'
+import UserActions from '@/components/dashboard/user/UserActions'
 
 export default {
   name: 'MainDashBoard',
 
   components: {
     AdminActions,
-    LogoutAction
+    LogoutAction,
+    UserActions
   },
 
   setup () {

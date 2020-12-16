@@ -10,6 +10,7 @@ import SignUp from '@/views/auth/SignUp'
 import DashBoard from '@/views/DashBoard'
 import CreateCharacter from '@/views/character/CreateCharacter'
 import CreateEpisode from '@/views/episode/CreateEpisode'
+import CreateQuote from '@/views/quote/CreateQuote'
 
 const routes = [
   {
@@ -55,6 +56,12 @@ const routes = [
     path: '/episode/new',
     name: 'CreateEpisode',
     component: CreateEpisode,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/quote/new',
+    name: 'CreateQuote',
+    component: CreateQuote,
     meta: { requiresAuth: true }
   }
 ]

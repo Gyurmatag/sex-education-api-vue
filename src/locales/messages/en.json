@@ -47,6 +47,14 @@
       "season": "Season"
     }
   },
+  "quote": {
+    "create": {
+      "action": "Add a Quote",
+      "title": "New Quote",
+      "quoteText": "Quote Text",
+      "character": "Character"
+    }
+  },
   "login": {
     "form": {
       "title": "Login",

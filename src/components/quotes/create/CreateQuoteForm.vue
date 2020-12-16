@@ -1,0 +1,115 @@
+<template>
+  <div class="flex flex-col items-center mb-8 space-y-8 rounded">
+    <div class="flex w-full justify-center py-5 bg-gray-800 text-xl text-white">
+      {{ $t('quote.create.title') }}
+    </div>
+    <div class="w-full max-w-xl p-5 bg-gray-800">
+      <form @submit.prevent="onSubmit">
+        <div class="h-28">
+          <label
+            class="block mb-2 text-white"
+            for="quoteText"
+          >{{ $t('quote.create.quoteText') }}</label>
+          <input
+            id="quoteText"
+            v-model="vv.quoteText.$model"
+            class="w-full p-2 border-b-2 rounded-lg outline-none"
+            type="text"
+            name="quoteText"
+            :class="{ 'ring-4 ring-red-600': vv.quoteText.$error }"
+          >
+          <div
+            v-if="vv.quoteText.$error"
+            class="py-2 block text-red-600"
+          >
+            <span>{{ vv.quoteText?.$errors[0]?.$message }}</span>
+          </div>
+        </div>
+        <div class="h-28">
+          <dropdown-auto-complete
+            id="character"
+            :items="availableCharacters"
+            :search-filter="vv.character.$model"
+          />
+        </div>
+        <div class="flex justify-end">
+          <button
+            class="p-2 rounded-lg text-white font-bold bg-primary disabled:opacity-50 disabled:cursor-default"
+            :disabled="vv.$invalid || createQuoteLoading"
+          >
+            {{ $t('common.submit') }}
+          </button>
+        </div>
+        <div
+          v-if="createQuoteError"
+          class="flex justify-start text-md text-white"
+        >
+          {{ $t('quote.create.error.createQuoteRequest') }}: {{ createQuoteError.message }}
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+import { reactive, toRef } from 'vue'
+import { useQuery, useResult, useMutation } from '@vue/apollo-composable'
+import { required } from '@vuelidate/validators'
+import { useVuelidate } from '@vuelidate/core'
+
+import createQuoteMutation from '@/graphql/mutations/remote/createQuote.mutation.gql'
+import router from '@/router'
+import DropdownAutoComplete from '@/components/shared/DropdownAutoComplete'
+import characterQuery from '@/graphql/queries/remote/characters.query.gql'
+
+export default {
+  name: 'CreateQuoteForm',
+
+  components: {
+    DropdownAutoComplete
+  },
+
+  setup () {
+    const newQuoteForm = reactive({
+      quoteText: '',
+      character: ''
+    })
+    const rules = {
+      quoteText: { required },
+      character: { required }
+    }
+
+    const vv = useVuelidate(rules, {
+      quoteText: toRef(newQuoteForm, 'quoteText'),
+      character: toRef(newQuoteForm, 'character')
+    })
+
+    const {
+      mutate: createQuote,
+      loading: createQuoteLoading,
+      error: createQuoteError,
+      onDone: createQuoteDone
+    } = useMutation(createQuoteMutation, () => ({
+      variables: {
+        quoteText: newQuoteForm.quoteText,
+        character: newQuoteForm.character
+      }
+    }))
+
+    const onSubmit = () => {
+      vv.value.$touch()
+      if (vv.value.$invalid) return
+      createQuote()
+    }
+
+    createQuoteDone(result => {
+      router.push('/dashboard')
+    })
+
+    const { result: characterResult, loading: characterLoading } = useQuery(characterQuery)
+    const availableCharacters = useResult(characterResult, [], data => data.characters)
+
+    return { vv, onSubmit, createQuoteLoading, createQuoteError, availableCharacters }
+  }
+}
+</script>
