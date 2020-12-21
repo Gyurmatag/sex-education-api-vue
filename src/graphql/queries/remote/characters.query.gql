@@ -1,5 +1,5 @@
-query Characters($skip: Int, $limit: Int) {
-    characters(skip: $skip, limit: $limit) {
+query Characters($skip: Int, $limit: Int, $characterFilters: CharacterFilters) {
+    characters(skip: $skip, limit: $limit, characterFilters: $characterFilters) {
         id
         name
         imageUrl

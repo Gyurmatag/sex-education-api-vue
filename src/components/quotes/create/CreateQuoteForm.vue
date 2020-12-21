@@ -28,9 +28,18 @@
         <div class="h-28">
           <dropdown-auto-complete
             id="character"
+            v-model="vv.character.name.$model"
             :items="availableCharacters"
-            :search-filter="vv.character.$model"
+            :input-class="'relative w-full p-2 border-b-2 rounded-lg outline-none'"
+            :input-error-class="{ 'ring-4 ring-red-600': vv.character?.name?.$error }"
+            @selected="onCharacterSelected"
           />
+          <div
+            v-if="vv.character?.name?.$error"
+            class="py-2 block text-red-600"
+          >
+            <span>{{ vv.character?.name?.$errors[0]?.$message }}</span>
+          </div>
         </div>
         <div class="flex justify-end">
           <button
@@ -72,16 +81,23 @@ export default {
   setup () {
     const newQuoteForm = reactive({
       quoteText: '',
-      character: ''
+      character: {
+        name: '',
+        id: ''
+      }
     })
     const rules = {
       quoteText: { required },
-      character: { required }
+      character: {
+        name: { required }
+      }
     }
 
     const vv = useVuelidate(rules, {
       quoteText: toRef(newQuoteForm, 'quoteText'),
-      character: toRef(newQuoteForm, 'character')
+      character: {
+        name: toRef(newQuoteForm.character, 'name')
+      }
     })
 
     const {
@@ -91,8 +107,8 @@ export default {
       onDone: createQuoteDone
     } = useMutation(createQuoteMutation, () => ({
       variables: {
-        quoteText: newQuoteForm.quoteText,
-        character: newQuoteForm.character
+        text: newQuoteForm.quoteText,
+        character: newQuoteForm.character.id
       }
     }))
 
@@ -102,14 +118,25 @@ export default {
       createQuote()
     }
 
-    createQuoteDone(result => {
+    function onCharacterSelected (option) {
+      newQuoteForm.character.id = option.id
+    }
+
+    createQuoteDone(_ => {
       router.push('/dashboard')
     })
 
-    const { result: characterResult, loading: characterLoading } = useQuery(characterQuery)
+    const { result: characterResult, loading: characterLoading } =
+      useQuery(characterQuery, {
+        skip: 0,
+        limit: 5,
+        characterFilters: {
+          name: toRef(newQuoteForm.character, 'name') || null
+        }
+      })
     const availableCharacters = useResult(characterResult, [], data => data.characters)
 
-    return { vv, onSubmit, createQuoteLoading, createQuoteError, availableCharacters }
+    return { vv, onSubmit, createQuoteLoading, createQuoteError, availableCharacters, onCharacterSelected, characterLoading }
   }
 }
 </script>

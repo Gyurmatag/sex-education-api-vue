@@ -10,7 +10,7 @@
     <input
       id="autoCompleteInput"
       v-model="searchFilter"
-      class="relative w-full p-2 border-b-2 rounded-lg outline-none"
+      :class="[inputClass, inputErrorClass]"
       type="text"
       @focus="showFilteredItems()"
       @blur="hideFilteredItems()"
@@ -20,11 +20,12 @@
       class="dropdown-content absolute p-2 border-b-2 rounded-lg outline-none bg-white"
     >
       <div
-        v-for="(item, index) in filteredItems"
+        v-for="(item, index) in items"
         :key="index"
         class="dropdown-item cursor-pointer"
+        @mousedown="selectItem(item)"
       >
-        {{ item.name || item.id || '-' }}
+        {{ item.name }}
       </div>
     </div>
   </div>
@@ -33,6 +34,8 @@
 <script>
 import { ref } from 'vue'
 
+import { useModelWrapper } from '@/utils/modelWrapper'
+
 export default {
   name: 'DropdownAutoComplete',
 
@@ -40,11 +43,23 @@ export default {
     items: {
       type: Array,
       required: true
+    },
+    modelValue: String,
+    inputClass: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    inputErrorClass: {
+      type: Object,
+      required: false,
+      default: null
     }
   },
 
-  setup (props, context) {
-    const searchFilter = ref('')
+  emits: ['update:modelValue', 'selected'],
+
+  setup (props, { emit }) {
     const optionsShown = ref(false)
 
     function showFilteredItems () {
@@ -55,24 +70,18 @@ export default {
       this.optionsShown = false
     }
 
+    function selectItem (item) {
+      this.optionsShown = false
+      this.searchFilter = item.name
+      emit('selected', item)
+    }
+
     return {
-      searchFilter,
+      searchFilter: useModelWrapper(props, emit, 'modelValue'),
       optionsShown,
       showFilteredItems,
-      hideFilteredItems
-    }
-  },
-
-  computed: {
-    filteredItems () {
-      const filtered = []
-      const regOption = new RegExp(this.searchFilter, 'ig')
-      for (const item of this.items) {
-        if (this.searchFilter.length < 1 || item.name.match(regOption)) {
-          if (filtered.length < 5) filtered.push(item)
-        }
-      }
-      return filtered
+      hideFilteredItems,
+      selectItem
     }
   }
 }
