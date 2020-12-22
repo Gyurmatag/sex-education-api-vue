@@ -3,7 +3,6 @@ subscription QuoteCreated {
         id
         text
         character {
-            id
             name
         }
     }
