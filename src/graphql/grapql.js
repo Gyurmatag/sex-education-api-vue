@@ -1,4 +1,6 @@
-import { ApolloClient, ApolloLink, createHttpLink } from '@apollo/client/core'
+import { ApolloClient, ApolloLink, createHttpLink, split } from '@apollo/client/core'
+import { WebSocketLink } from '@apollo/client/link/ws'
+import { getMainDefinition } from '@apollo/client/utilities'
 import { onError } from '@apollo/client/link/error'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import authDataLocalQuery from '@/graphql/queries/local/authDataLocal.query.gql'
@@ -8,6 +10,25 @@ import router from '@/router'
 const httpLink = createHttpLink({
   uri: process.env.VUE_APP_BACKEND_BASE_URI
 })
+
+const wsLink = new WebSocketLink({
+  uri: 'ws://localhost:5001/graphql',
+  options: {
+    reconnect: true
+  }
+})
+
+const link = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query)
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    )
+  },
+  wsLink,
+  httpLink
+)
 
 const cache = new InMemoryCache()
 cache.writeData({ data: { authDataLocal: null } })
@@ -69,7 +90,7 @@ const authLink = new ApolloLink((operation, forward) => {
 })
 
 const apolloClient = new ApolloClient({
-  link: ApolloLink.from([errorLink, authLink, httpLink]),
+  link: ApolloLink.from([errorLink, authLink, link]),
   cache
 })
 

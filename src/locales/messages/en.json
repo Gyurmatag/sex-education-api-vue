@@ -53,6 +53,10 @@
       "title": "New Quote",
       "quoteText": "Quote Text",
       "character": "Character"
+    },
+    "list": {
+      "action": "Real Time Quotes",
+      "title": "Real Time Quotes"
     }
   },
   "login": {

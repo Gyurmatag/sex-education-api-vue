@@ -1,0 +1,10 @@
+subscription QuoteCreated {
+    quoteCreated {
+        id
+        text
+        character {
+            id
+            name
+        }
+    }
+}
