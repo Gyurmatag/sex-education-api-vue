@@ -48,6 +48,14 @@ type Mutation {
     signup(email: String!, password: String!, username: String!): User
 }
 
+type PaginatedItems {
+    hasNext: Boolean!
+    hasPrevious: Boolean!
+    next: String!
+    previous: String!
+    results: [Quote]!
+}
+
 type Query {
     character(id: ID!): Character
     characters(characterFilters: CharacterFilters, limit: Int, skip: Int): [Character]
@@ -55,14 +63,14 @@ type Query {
     episode(id: ID!): Episode
     episodes(limit: Int, skip: Int): [Episode]
     me: User
-    quotes(limit: Int, skip: Int): [Quote]
+    quotes(limit: Int, next: String): PaginatedItems
     season(id: ID!): Season
     seasons: [Season]
 }
 
 type Quote {
+    _id: ID!
     character: Character!
-    id: ID!
     text: String!
 }
 

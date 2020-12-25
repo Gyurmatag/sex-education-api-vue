@@ -7,10 +7,13 @@
       class="flex flex-col space-y-5 p-4 items-center"
     >
       <quote-card
-        v-for="quote in quotes"
-        :key="quote.id"
+        v-for="quote in quotes?.results"
+        :key="quote._id"
         :quote="quote"
       />
+      <button @click="loadMore">
+        Load more
+      </button>
     </div>
   </div>
 </template>
@@ -21,6 +24,7 @@ import { useQuery, useResult } from '@vue/apollo-composable'
 import QuoteCard from '@/components/quotes/card/QuoteCard'
 import quotesQuery from '@/graphql/queries/remote/quotes.query.gql'
 import quoteCreatedSubscription from '@/graphql/subscriptions/quoteCreated.subscription.gql'
+import { toRef } from 'vue'
 
 export default {
   name: 'QuoteCardList',
@@ -30,18 +34,41 @@ export default {
   },
 
   setup () {
-    const { result: quotesResult, loading: quotesLoading, subscribeToMore } = useQuery(quotesQuery, { skip: 0, limit: 6 })
+    const { result: quotesResult, loading: quotesLoading, subscribeToMore, fetchMore } = useQuery(quotesQuery, { limit: 5 })
     const quotes = useResult(quotesResult, null, data => data.quotes)
+
+    function loadMore () {
+      // TODO: ez deprecated, ki kell cserélni, ha updatelik a doksit
+      fetchMore({
+        variables: {
+          limit: 5,
+          next: quotes.value.next
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          return {
+            ...previousResult,
+            quotes: {
+              ...previousResult.quotes,
+              next: fetchMoreResult.quotes.next,
+              results: [
+                ...previousResult.quotes.results,
+                ...fetchMoreResult.quotes.results
+              ]
+            }
+          }
+        }
+      })
+    }
 
     subscribeToMore(() => ({
       document: quoteCreatedSubscription,
       updateQuery: (previousResult, { subscriptionData }) => {
-        previousResult.quotes.unshift(subscriptionData.data.quoteCreated)
+        previousResult.quotes.results.unshift(subscriptionData.data.quoteCreated)
         return previousResult
       }
     }))
 
-    return { quotes, quotesLoading }
+    return { quotes, quotesLoading, loadMore }
   }
 }
 </script>

@@ -1,9 +1,11 @@
-query Quotes($skip: Int, $limit: Int) {
-    quotes(skip: $skip, limit: $limit) {
-        id
-        text
-        character {
-            name
+query Quotes($limit: Int, $next: String) {
+    quotes(limit: $limit, next: $next) {
+        results {
+            _id
+            text
         }
+        next
+        hasNext
     }
 }
+

@@ -1,6 +1,6 @@
 subscription QuoteCreated {
     quoteCreated {
-        id
+        _id
         text
         character {
             name
