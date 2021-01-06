@@ -3,9 +3,9 @@
     <div class="text-left m-4 text-white italic">
       {{ quote.text }}
     </div>
-    <!--    <div class="text-right m-4 text-white text-sm text-gray-400">
+    <div class="text-right m-4 text-white text-sm text-gray-400">
       {{ quote.character.name }}
-    </div>-->
+    </div>
   </div>
 </template>
 

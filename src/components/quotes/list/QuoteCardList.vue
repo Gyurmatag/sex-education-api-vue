@@ -11,7 +11,11 @@
         :key="quote._id"
         :quote="quote"
       />
-      <button @click="loadMore">
+      <button
+        v-if="quotes?.hasNext"
+        class="p-2 rounded-lg text-white font-bold bg-gray-800"
+        @click="loadMore"
+      >
         Load more
       </button>
     </div>
@@ -24,7 +28,6 @@ import { useQuery, useResult } from '@vue/apollo-composable'
 import QuoteCard from '@/components/quotes/card/QuoteCard'
 import quotesQuery from '@/graphql/queries/remote/quotes.query.gql'
 import quoteCreatedSubscription from '@/graphql/subscriptions/quoteCreated.subscription.gql'
-import { toRef } from 'vue'
 
 export default {
   name: 'QuoteCardList',
@@ -49,6 +52,7 @@ export default {
             ...previousResult,
             quotes: {
               ...previousResult.quotes,
+              hasNext: fetchMoreResult.quotes.hasNext,
               next: fetchMoreResult.quotes.next,
               results: [
                 ...previousResult.quotes.results,

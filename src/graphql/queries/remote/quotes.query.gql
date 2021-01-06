@@ -3,6 +3,10 @@ query Quotes($limit: Int, $next: String) {
         results {
             _id
             text
+            character {
+                id
+                name
+            }
         }
         next
         hasNext
