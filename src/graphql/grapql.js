@@ -12,7 +12,7 @@ const httpLink = createHttpLink({
 })
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:5001/graphql',
+  uri: process.env.VUE_APP_BACKEND_BASE_WS_URI,
   options: {
     reconnect: true
   }
