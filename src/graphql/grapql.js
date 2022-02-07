@@ -32,11 +32,7 @@ const link = split(
 
 const cache = new InMemoryCache()
 cache.writeQuery({
-  query: gql`
-      query GetAuthDataLocal {
-        authDataLocal
-      }
-    `,
+  query: authDataLocalQuery,
   data: {
     authDataLocal: ''
   }
