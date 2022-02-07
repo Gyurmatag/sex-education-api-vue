@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloLink, InMemoryCache, split } from '@apollo/client/core'
+import { ApolloClient, ApolloLink, gql, InMemoryCache, split } from '@apollo/client/core'
 import { createHttpLink } from '@apollo/client/link/http'
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { getMainDefinition } from '@apollo/client/utilities'
@@ -31,7 +31,16 @@ const link = split(
 )
 
 const cache = new InMemoryCache()
-cache.writeData({ data: { authDataLocal: null } })
+cache.writeQuery({
+  query: gql`
+      query GetAuthDataLocal {
+        cartItems
+      }
+    `,
+  data: {
+    authDataLocal: null
+  }
+})
 
 const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
   if (graphQLErrors) {
