@@ -1,4 +1,5 @@
-import { ApolloClient, ApolloLink, createHttpLink, split } from '@apollo/client/core'
+import { ApolloClient, ApolloLink, split } from '@apollo/client/core'
+import { createHttpLink } from '@apollo/client/link/http'
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { onError } from '@apollo/client/link/error'

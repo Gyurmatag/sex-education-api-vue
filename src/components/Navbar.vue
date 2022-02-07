@@ -11,13 +11,13 @@
     <div>
       <div class="text-lg">
         <router-link
-          class="inline-block align-bottom mr-4 text-white hover:text-secondary cursor-pointer"
+          class="inline-block align-bottom mr-4 text-white hover:text-secondary cursor-pointer hidden"
           to="/documentation"
         >
           {{ $t('nav.docs') }}
         </router-link>
         <router-link
-          class="inline-block align-bottom mr-4 text-white hover:text-secondary cursor-pointer"
+          class="inline-block align-bottom mr-4 text-white hover:text-secondary cursor-pointer hidden"
           to="/about"
         >
           {{ $t('nav.about') }}
