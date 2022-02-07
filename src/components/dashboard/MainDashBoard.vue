@@ -4,7 +4,7 @@
       {{ $t('dashBoard.title') }}
     </div>
     <div
-      v-if="authData.authDataLocal.user.role === 'ADMIN'"
+      v-if="authData?.authDataLocal.user.role === 'ADMIN'"
       class="flex justify-center space-x-6 p-6"
     >
       <admin-actions />
