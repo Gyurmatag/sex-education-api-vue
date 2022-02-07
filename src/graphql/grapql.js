@@ -30,7 +30,7 @@ const link = split(
 )
 
 const cache = new InMemoryCache()
-cache.writeQuery({ data: { authDataLocal: null } })
+cache.writeQuery({ query: authDataLocalQuery, data: { authDataLocal: null } })
 
 const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) => {
   if (graphQLErrors) {
