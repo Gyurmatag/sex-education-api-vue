@@ -34,7 +34,7 @@ const cache = new InMemoryCache()
 cache.writeQuery({
   query: gql`
       query GetAuthDataLocal {
-        cartItems
+        authDataLocal
       }
     `,
   data: {
