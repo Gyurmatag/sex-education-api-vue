@@ -38,7 +38,7 @@ cache.writeQuery({
       }
     `,
   data: {
-    authDataLocal: null
+    authDataLocal: ''
   }
 })
 
